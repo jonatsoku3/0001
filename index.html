@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เครื่องคิดเลขวงจรไฟฟ้า</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>เครื่องคิดเลขวงจรไฟฟ้า</h1>
+        
+        <!-- เมนูประเภทการคำนวณ -->
+        <label for="calculationType">ประเภทการคำนวณ:</label>
+        <select id="calculationType" onchange="updateCalculationUI()">
+            <option value="circuit">คำนวณวงจร</option>
+            <option value="findR">หาค่าความต้านทาน (R)</option>
+            <option value="findV">หาค่าแรงดัน (V)</option>
+            <option value="findI">หาค่ากระแส (I)</option>
+            <option value="findP">หาค่าพลังงาน (P)</option>
+        </select>
+
+        <!-- เมนูประเภทวงจร -->
+        <div id="circuitInputs" class="calculation-inputs" style="display:none;">
+            <label for="circuitType">ประเภทวงจร:</label>
+            <select id="circuitType" onchange="updateCircuitUI()">
+                <option value="series">อนุกลม (Series)</option>
+                <option value="parallel">ขนาน (Parallel)</option>
+            </select>
+
+            <!-- Content for series, parallel circuit types -->
+            <div id="seriesInputs" class="calculation-inputs" style="display:none;">
+                <label for="voltage">แรงดัน (V):</label>
+                <input type="number" id="voltage" placeholder="กรอกแรงดัน">
+                
+                <label for="numberOfResistorsSeries">จำนวนความต้านทาน (อนุกลม):</label>
+                <input type="number" id="numberOfResistorsSeries" onchange="updateSeriesResistorFields()" placeholder="กรอกจำนวน">
+                
+                <div id="resistorFieldsSeries"></div>
+
+                <button onclick="calculate()">คำนวณ</button>
+                <div class="result" id="resultSeries"></div>
+                <div class="calculationSteps" id="stepsSeries"></div>
+            </div>
+
+            <div id="parallelInputs" class="calculation-inputs" style="display:none;">
+                <label for="numberOfResistorsParallel">จำนวนความต้านทาน (ขนาน):</label>
+                <input type="number" id="numberOfResistorsParallel" onchange="updateParallelResistorFields()" placeholder="กรอกจำนวน">
+                
+                <div id="resistorFieldsParallel"></div>
+
+                <button onclick="calculate()">คำนวณ</button>
+                <div class="result" id="resultParallel"></div>
+                <div class="calculationSteps" id="stepsParallel"></div>
+            </div>
+        </div>
+
+        <!-- เมนูการคำนวณค่า R, V, I, P -->
+        <div id="findRInputs" class="calculation-inputs" style="display:none;">
+            <label for="voltageR">แรงดัน (V):</label>
+            <input type="number" id="voltageR" placeholder="กรอกแรงดัน">
+
+            <label for="currentR">กระแส (I):</label>
+            <input type="number" id="currentR" placeholder="กรอกกระแส">
+
+            <button onclick="calculateResistance()">หาค่าความต้านทาน (R)</button>
+            <div class="result" id="resultR"></div>
+            <div class="calculationSteps" id="stepsR"></div>
+        </div>
+
+        <div id="findVInputs" class="calculation-inputs" style="display:none;">
+            <label for="resistanceV">ความต้านทาน (R):</label>
+            <input type="number" id="resistanceV" placeholder="กรอกความต้านทาน">
+
+            <label for="currentV">กระแส (I):</label>
+            <input type="number" id="currentV" placeholder="กรอกกระแส">
+
+            <button onclick="calculateVoltage()">หาค่าแรงดัน (V)</button>
+            <div class="result" id="resultV"></div>
+            <div class="calculationSteps" id="stepsV"></div>
+        </div>
+
+        <div id="findIInputs" class="calculation-inputs" style="display:none;">
+            <label for="voltageI">แรงดัน (V):</label>
+            <input type="number" id="voltageI" placeholder="กรอกแรงดัน">
+
+            <label for="resistanceI">ความต้านทาน (R):</label>
+            <input type="number" id="resistanceI" placeholder="กรอกความต้านทาน">
+
+            <button onclick="calculateCurrent()">หาค่ากระแส (I)</button>
+            <div class="result" id="resultI"></div>
+            <div class="calculationSteps" id="stepsI"></div>
+        </div>
+
+        <div id="findPInputs" class="calculation-inputs" style="display:none;">
+            <label for="voltageP">แรงดัน (V):</label>
+            <input type="number" id="voltageP" placeholder="กรอกแรงดัน">
+
+            <label for="currentP">กระแส (I):</label>
+            <input type="number" id="currentP" placeholder="กรอกกระแส">
+
+            <button onclick="calculatePower()">หาค่าพลังงาน (P)</button>
+            <div class="result" id="resultP"></div>
+            <div class="calculationSteps" id="stepsP"></div>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
